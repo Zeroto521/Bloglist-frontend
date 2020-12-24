@@ -1,21 +1,20 @@
 import React from 'react'
 
-const blogForm = (props) => {
-  const { addBlog, newBlog, setNewBlog } = props
+import Blog from './Blog'
 
-  const handleBlogChange = (event) => {
-    setNewBlog(event.target.value)
-  }
+const BlogForm = (props) => {
+  const { blogs } = props
 
   return (
-    <form onSubmit={addBlog}>
-      <input
-        value={newBlog}
-        onChange={handleBlogChange}
-      />
-      <button type="submit">save</button>
-    </form>
+    <div>
+      <h2>contents</h2>
+      {
+        blogs.map(blog =>
+          <Blog key={blog.id} blog={blog} />
+        )
+      }
+    </div>
   )
 }
 
-export default blogForm
+export default BlogForm
