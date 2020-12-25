@@ -5,6 +5,7 @@ import blogService from "./services/blogs"
 import CreateBlog from "./components/CreateBlog"
 import LoginForm from "./components/LoginForm"
 import Notification from "./components/Notification"
+import Togglable from "./components/Togglable"
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -32,6 +33,18 @@ const App = () => {
     setTimeout(() => { }, 3000)
   }
 
+  const createBlog = () => {
+    let html = null
+    if (user)
+      html = (
+        <Togglable buttonLabel='new blog'>
+          <CreateBlog blogs={blogs} setBlogs={setBlogs} notifyWith={notifyWith} />
+        </Togglable>
+      )
+
+    return html
+  }
+
   return (
     <div>
       <h1>Blogs</h1>
@@ -45,10 +58,7 @@ const App = () => {
         password={password}
         setPassword={setPassword}
       />
-      {
-        user &&
-        <CreateBlog blogs={blogs} setBlogs={setBlogs} notifyWith={notifyWith} />
-      }
+      { createBlog()}
       {
         user &&
         <BlogForm blogs={blogs} setBlogs={setBlogs} />
