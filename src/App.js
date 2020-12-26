@@ -25,7 +25,10 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs))
+    blogService.getAll().then((blogs) => {
+      blogs.sort((a, b) => b.likes - a.likes)
+      setBlogs(blogs)
+    })
   }, [])
 
   const notifyWith = (message, type = "success") => {
@@ -58,7 +61,7 @@ const App = () => {
         password={password}
         setPassword={setPassword}
       />
-      { createBlog() }
+      { createBlog()}
       {
         user &&
         <BlogForm blogs={blogs} />
