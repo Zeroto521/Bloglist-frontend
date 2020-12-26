@@ -61,7 +61,7 @@ const App = () => {
       { createBlog() }
       {
         user &&
-        <BlogForm blogs={blogs} setBlogs={setBlogs} />
+        <BlogForm blogs={blogs} />
       }
     </div>
   )
