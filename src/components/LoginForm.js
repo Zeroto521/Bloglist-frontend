@@ -39,8 +39,7 @@ const LoginForm = props => {
     html = (
       <div>
         <p>
-          {user.name} logged in
-            <button onClick={handleLogout}>logout</button>
+          {user.name} logged in <button onClick={handleLogout}>logout</button>
         </p>
       </div>
     )
