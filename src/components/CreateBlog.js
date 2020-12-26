@@ -23,7 +23,6 @@ const CreateBlog = props => {
     )
 
     notifyWith(`a new blog ${title} by ${author}`)
-    setTimeout(() => { }, 3000)
   }
 
   return (

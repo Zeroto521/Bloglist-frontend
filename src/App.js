@@ -33,7 +33,7 @@ const App = () => {
 
   const notifyWith = (message, type = "success") => {
     setNotification({ message, type })
-    setTimeout(() => { }, 3000)
+    setTimeout(() => { setNotification(null) }, 3000)
   }
 
   const createBlog = () => {
@@ -61,10 +61,10 @@ const App = () => {
         password={password}
         setPassword={setPassword}
       />
-      { createBlog()}
+      {createBlog()}
       {
         user &&
-        <BlogForm blogs={blogs} />
+        <BlogForm blogs={blogs} setBlogs={setBlogs} notifyWith={notifyWith} />
       }
     </div>
   )

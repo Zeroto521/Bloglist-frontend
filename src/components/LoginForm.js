@@ -31,9 +31,6 @@ const LoginForm = props => {
   const handleLogout = () => {
     window.localStorage.removeItem('loggedBlogappUser')
     setUser(null)
-
-    notifyWith('Log out')
-    setTimeout(() => { }, 3000)
   }
 
   let html
