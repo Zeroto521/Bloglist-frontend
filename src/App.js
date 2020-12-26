@@ -58,7 +58,7 @@ const App = () => {
         password={password}
         setPassword={setPassword}
       />
-      { createBlog()}
+      { createBlog() }
       {
         user &&
         <BlogForm blogs={blogs} setBlogs={setBlogs} />
