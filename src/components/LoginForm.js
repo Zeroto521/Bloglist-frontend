@@ -23,7 +23,6 @@ const LoginForm = props => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      console.log(exception)
       notifyWith('wrong credentials', 'error')
       setTimeout(() => { }, 3000)
     }
