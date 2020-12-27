@@ -33,4 +33,7 @@ test('click view button and can see blog detail', () => {
 
   const blogAll = component.container.querySelector('.blogAll')
   expect(blogAll).toBeVisible()
+  expect(blogAll).toHaveTextContent(`${blog.url}`)
+  expect(blogAll).toHaveTextContent(`${blog.likes}`)
+
 })
