@@ -30,10 +30,8 @@ test('click view button and can see blog detail', () => {
   const buttonView = component.getByText('view')
   fireEvent.click(buttonView)
 
-
   const blogAll = component.container.querySelector('.blogAll')
   expect(blogAll).toBeVisible()
   expect(blogAll).toHaveTextContent(`${blog.url}`)
   expect(blogAll).toHaveTextContent(`${blog.likes}`)
-
 })
