@@ -1,11 +1,8 @@
 import '@testing-library/jest-dom'
-import { prettyDOM } from '@testing-library/dom'
 import { render, fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import Blog from './Blog'
-import blogService from '../services/blogs'
-import loginService from '../services/login'
 
 const blog = {
   'title': "React patterns",
@@ -13,20 +10,6 @@ const blog = {
   'url': "https://reactpatterns.com",
   'likes': 7
 }
-
-const testUser = {
-  'username': 'test',
-  'password': 'test',
-}
-
-beforeEach(async () => {
-  const user = await loginService.login(testUser)
-  window.localStorage.setItem(
-    'loggedBlogappUser', JSON.stringify(user)
-  )
-
-  blogService.setToken(user.token)
-})
 
 test('default view, can only see title and author', () => {
   const component = render(
@@ -53,13 +36,11 @@ test('click view button and can see blog detail', () => {
   expect(blogAll).toHaveTextContent(`${blog.likes}`)
 })
 
-
-test('click like button twice and likes will plus two', () => {
-  const mockSetBlogs = jest.fn()
-  const mockNotifyWith = jest.fn()
+test('click like button twice and likes will plus two', async () => {
+  const mockHandler = jest.fn()
 
   const component = render(
-    <Blog blog={blog} setBlogs={mockSetBlogs} notifyWith={mockNotifyWith} />
+    <Blog blog={blog} handleLikeChange={mockHandler} />
   )
 
   const buttonView = component.getByText('view')
@@ -72,5 +53,5 @@ test('click like button twice and likes will plus two', () => {
   fireEvent.click(buttonLike)
   fireEvent.click(buttonLike)
 
-  console.log(prettyDOM(buttonLike))
+  expect(mockHandler.mock.calls).toHaveLength(2)
 })
