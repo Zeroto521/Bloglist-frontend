@@ -1,3 +1,5 @@
+const { func } = require("prop-types")
+
 describe('Blog app', function () {
   beforeEach(function () {
     cy.request('POST', 'http://localhost:3001/api/testing/reset')
@@ -82,7 +84,7 @@ describe('Blog app', function () {
           .and('have.css', 'border-style', 'solid')
       })
 
-      describe.only('Have blogs', function () {
+      describe('Have blogs', function () {
         beforeEach(function () {
           cy.createBlog({
             "title": "React patterns",
@@ -91,12 +93,21 @@ describe('Blog app', function () {
           })
         })
 
-        it('Click likes', async function () {
+        it('Click likes', function () {
           cy.contains('view').click()
           cy.contains('like').click()
           cy.get('.success')
             .should('contain', 'blog likes+1 React patterns by Michael Chan')
             .and('have.css', 'color', 'rgb(0, 128, 0)')
+            .and('have.css', 'border-style', 'solid')
+        })
+
+        it('Delete one blog', function () {
+          cy.contains('view').click()
+          cy.contains('remove').click()
+          cy.get('.error')
+            .should('contain', 'Removed blog React patterns by Michael Chan')
+            .and('have.css', 'color', 'rgb(255, 0, 0)')
             .and('have.css', 'border-style', 'solid')
         })
       })
