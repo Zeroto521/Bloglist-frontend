@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-// FIX Network Error for jest, jest can't read proxy config.
-const baseUrl = 'http://localhost:3001/api/blogs'
+const baseUrl = '/api/blogs'
 
 let token = null
 
