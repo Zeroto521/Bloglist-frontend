@@ -84,7 +84,7 @@ describe('Blog app', function () {
           .and('have.css', 'border-style', 'solid')
       })
 
-      describe('Have blogs', function () {
+      describe('Have one blog', function () {
         beforeEach(function () {
           cy.createBlog({
             "title": "React patterns",
@@ -109,6 +109,31 @@ describe('Blog app', function () {
             .should('contain', 'Removed blog React patterns by Michael Chan')
             .and('have.css', 'color', 'rgb(255, 0, 0)')
             .and('have.css', 'border-style', 'solid')
+        })
+      })
+
+      describe.only('Have blogs', function () {
+        beforeEach(function () {
+          cy.createBlog({
+            "title": "React patterns",
+            "author": "Michael Chan",
+            "url": "https://reactpatterns.com",
+            "likes": 7
+          })
+          cy.createBlog({
+            'title': "Go To Statement Considered Harmful",
+            'author': "Edsger W. Dijkstra",
+            'url': "http://www.u.arizona.edu",
+            'likes': 10
+          })
+        })
+
+        it.only('Compare the sequence of blog likes', function () {
+          cy.contains('Go To Statement Considered Harmful').find('button').click()
+          cy.contains('React patterns by Michael Chan').find('button').click()
+          cy.get('#likes')
+            .should('contain', '10')
+            .should('not.contain', '7')
         })
       })
     })
