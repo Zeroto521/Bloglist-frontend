@@ -41,7 +41,7 @@ describe('Blog app', function () {
       cy.get('html').should('not.contain', 'test logged in')
     })
 
-    describe.only('When logged in', function () {
+    describe('When logged in', function () {
       beforeEach(function () {
         cy.get('input:first').type('test')
         cy.get('input:last').type('test')
