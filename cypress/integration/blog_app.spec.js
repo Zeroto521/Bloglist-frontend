@@ -61,7 +61,7 @@ describe('Blog app', function () {
         cy.contains('cancel').click()
       })
 
-      it.only('A blog can be created', function () {
+      it('A blog can be created', function () {
         const blog = {
           "title": "React patterns",
           "author": "Michael Chan",
