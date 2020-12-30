@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react"
 
 import BlogForm from "./components/BlogForm"
 import blogService from "./services/blogs"
-import CreateBlog from "./components/CreateBlog"
 import LoginForm from "./components/LoginForm"
 import Notification from "./components/Notification"
-import Togglable from "./components/Togglable"
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -36,17 +34,6 @@ const App = () => {
     setTimeout(() => { setNotification(null) }, 3000)
   }
 
-  const createBlog = () => {
-    let html = null
-    if (user)
-      html = (
-        <Togglable buttonLabel='new blog'>
-          <CreateBlog blogs={blogs} setBlogs={setBlogs} notifyWith={notifyWith} />
-        </Togglable>
-      )
-
-    return html
-  }
 
   return (
     <div>
@@ -61,7 +48,6 @@ const App = () => {
         password={password}
         setPassword={setPassword}
       />
-      {createBlog()}
       {
         user &&
         <BlogForm blogs={blogs} setBlogs={setBlogs} notifyWith={notifyWith} />

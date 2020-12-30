@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import Blog from './Blog'
+import CreateBlog from './CreateBlog'
 
 const blog = {
   'title': "React patterns",
@@ -36,7 +37,7 @@ test('click view button and can see blog detail', () => {
   expect(blogAll).toHaveTextContent(`${blog.likes}`)
 })
 
-test('click like button twice and likes will plus two', async () => {
+test('click like button twice and likes will plus two', () => {
   const mockHandler = jest.fn()
 
   const component = render(
@@ -54,4 +55,18 @@ test('click like button twice and likes will plus two', async () => {
   fireEvent.click(buttonLike)
 
   expect(mockHandler.mock.calls).toHaveLength(2)
+})
+
+test('create a new blog', () => {
+  const component = render(
+    <CreateBlog />
+  )
+
+  const title = component.container.querySelector('#title')
+  const author = component.container.querySelector('#author')
+  const url = component.container.querySelector('#url')
+
+  expect(title).toBeDefined()
+  expect(author).toBeDefined()
+  expect(url).toBeDefined()
 })
