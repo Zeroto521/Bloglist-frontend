@@ -43,9 +43,7 @@ describe('Blog app', function () {
 
     describe('When logged in', function () {
       beforeEach(function () {
-        cy.get('input:first').type('test')
-        cy.get('input:last').type('test')
-        cy.contains('login').click()
+        cy.login('test', 'test')
       })
 
       it('Blog form is shown', function () {
@@ -58,27 +56,49 @@ describe('Blog app', function () {
         cy.contains('title')
         cy.contains('author')
         cy.contains('url')
-        cy.contains('cancel').click()
+        cy.get('#cancel').click()
       })
 
       it('A blog can be created', function () {
-        const blog = {
-          "title": "React patterns",
-          "author": "Michael Chan",
-          "url": "https://reactpatterns.com/"
+        const create = (blog) => {
+          cy.contains('new blog').click()
+          cy.get('#title').type(blog.title)
+          cy.get('#author').type(blog.author)
+          cy.get('#url').type(blog.url)
+          cy.get('#create').click()
+          cy.get('#cancel').click()
         }
 
-        cy.contains('new blog').click()
-        cy.get('#title').type(blog.title)
-        cy.get('#author').type(blog.author)
-        cy.get('#url').type(blog.url)
-        cy.get('#create').click()
+        create({
+          "title": "React patterns",
+          "author": "Michael Chan",
+          "url": "https://reactpatterns.com"
+        })
 
         cy.get('html').should('contain', 'React patterns by Michael Chan')
         cy.get('.success')
           .should('contain', 'a new blog React patterns by Michael Chan')
           .and('have.css', 'color', 'rgb(0, 128, 0)')
           .and('have.css', 'border-style', 'solid')
+      })
+
+      describe.only('Have blogs', function () {
+        beforeEach(function () {
+          cy.createBlog({
+            "title": "React patterns",
+            "author": "Michael Chan",
+            "url": "https://reactpatterns.com"
+          })
+        })
+
+        it('Click likes', async function () {
+          cy.contains('view').click()
+          cy.contains('like').click()
+          cy.get('.success')
+            .should('contain', 'blog likes+1 React patterns by Michael Chan')
+            .and('have.css', 'color', 'rgb(0, 128, 0)')
+            .and('have.css', 'border-style', 'solid')
+        })
       })
     })
   })
