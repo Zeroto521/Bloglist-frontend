@@ -2,26 +2,20 @@ import { useDispatch } from 'react-redux'
 import React from 'react'
 
 import { notify } from '../reducers/notificationReducer'
+import { useLogin } from '../hooks'
 import blogService from '../services/blogs'
-import loginService from '../services/login'
 
-const LoginForm = ({ user, setUser, username, setUsername, password, setPassword }) => {
+const LoginForm = ({ user, setUser }) => {
+  const account = useLogin('http://localhost:3001/api/login')
   const dispatch = useDispatch()
 
   const handleLogin = async (event) => {
     event.preventDefault()
 
     try {
-      const user = await loginService.login({ username, password })
-
-      window.localStorage.setItem(
-        'loggedBlogappUser', JSON.stringify(user)
-      )
-
+      const user = await account.login()
       blogService.setToken(user.token)
       setUser(user)
-      setUsername('')
-      setPassword('')
       dispatch(notify('Welcome.'))
     } catch (exception) {
       dispatch(notify('Wrong username or password.', 'error'))
@@ -29,14 +23,14 @@ const LoginForm = ({ user, setUser, username, setUsername, password, setPassword
   }
 
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedBlogappUser')
+    account.logout()
     setUser(null)
   }
 
-  let html
+  let dom = null
 
   if (user) {
-    html = (
+    dom = (
       <div>
         <p>
           {user.name} logged in <button onClick={handleLogout}>logout</button>
@@ -44,28 +38,16 @@ const LoginForm = ({ user, setUser, username, setUsername, password, setPassword
       </div>
     )
   } else {
-    html = (
+    dom = (
       <div>
         <h2>log in to application</h2>
         <div>
           <form onSubmit={handleLogin}>
             <div>
-              username
-              <input
-                type="text"
-                value={username}
-                name="Username"
-                onChange={({ target }) => setUsername(target.value)}
-              />
+              username <input {...account.username} />
             </div>
             <div>
-              password
-              <input
-                type="password"
-                value={password}
-                name="Password"
-                onChange={({ target }) => setPassword(target.value)}
-              />
+              password <input {...account.password} />
             </div>
             <button type="submit">login</button>
           </form>
@@ -74,7 +56,7 @@ const LoginForm = ({ user, setUser, username, setUsername, password, setPassword
     )
   }
 
-  return html
+  return dom
 }
 
 export default LoginForm

@@ -1,12 +1,14 @@
+import { useDispatch } from 'react-redux'
 import React from 'react'
 
+import { notify } from '../reducers/notificationReducer'
 import Blog from './Blog'
 import blogService from "../services/blogs"
 import CreateBlog from "./CreateBlog"
 import Togglable from "./Togglable"
 
-const BlogForm = (props) => {
-  const { blogs, setBlogs, notifyWith } = props
+const BlogForm = ({ blogs, setBlogs }) => {
+  const dispatch = useDispatch()
 
   const createBlog = () => (
     <Togglable buttonLabel='new blog'>
@@ -27,7 +29,7 @@ const BlogForm = (props) => {
       setBlogs(blogs.concat(returnedBlog))
     )
 
-    notifyWith(`a new blog ${title} by ${author}`)
+    dispatch(notify(`a new blog ${title} by ${author}`))
   }
 
   const handleLikeChange = async (blog) => {
@@ -41,7 +43,7 @@ const BlogForm = (props) => {
     const blogs = await blogService.getAll()
     setBlogs(blogs)
 
-    notifyWith(`blog likes+1 ${blog.title} by ${blog.author}`)
+    dispatch(notify(`blog likes+1 ${blog.title} by ${blog.author}`))
   }
 
   const handleRemove = async (blog) => {
@@ -52,7 +54,7 @@ const BlogForm = (props) => {
       blogs.sort((a, b) => b.likes - a.likes)
       setBlogs(blogs)
 
-      notifyWith(`Removed blog ${blog.title} by ${blog.author}`, 'error')
+      dispatch(notify(`Removed blog ${blog.title} by ${blog.author}`, 'error'))
     }
   }
 

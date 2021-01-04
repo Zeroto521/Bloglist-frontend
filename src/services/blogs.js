@@ -9,12 +9,20 @@ const setToken = newToken => {
 }
 
 const getAll = async () => {
-  const request = await axios.get(baseUrl)
+  const config = {
+    'headers': { 'Authorization': token },
+  }
+
+  const request = await axios.get(baseUrl, config)
   return request.data
 }
 
 const getBlogByID = async (id) => {
-  const request = await axios.get(`${baseUrl}/${id}`)
+  const config = {
+    'headers': { 'Authorization': token },
+  }
+
+  const request = await axios.get(`${baseUrl}/${id}`, config)
   return request.data
 }
 

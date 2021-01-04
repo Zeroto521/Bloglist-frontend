@@ -7,12 +7,10 @@ import Notification from "./components/Notification"
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser")
+    const loggedUserJSON = window.localStorage.getItem("loggedAppUser")
 
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
@@ -33,14 +31,7 @@ const App = () => {
     <div>
       <h1>Blogs</h1>
       <Notification />
-      <LoginForm
-        user={user}
-        setUser={setUser}
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-      />
+      <LoginForm user={user} setUser={setUser} />
       {
         user &&
         <BlogForm blogs={blogs} setBlogs={setBlogs} />

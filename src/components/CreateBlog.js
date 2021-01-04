@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const CreateBlog = props => {
-  const { addBlog } = props
+import { useField } from '../hooks'
 
-  const [title, setTitle] = useState("")
-  const [author, setAuthor] = useState("")
-  const [url, setUrl] = useState("")
+const CreateBlog = ({ addBlog }) => {
+  const title = useField('text')
+  const author = useField('text')
+  const url = useField('text')
 
   return (
     <div>
       <h2>create new</h2>
-      <form onSubmit={event => addBlog(event, title, author, url)}>
-        <div>title: <input id='title' value={title} onChange={({ target }) => setTitle(target.value)} /></div>
-        <div>author: <input id='author' value={author} onChange={({ target }) => setAuthor(target.value)} /></div>
-        <div>url: <input id='url' value={url} onChange={({ target }) => setUrl(target.value)} /></div>
+      <form onSubmit={event => addBlog(event, title.value, author.value, url.value)}>
+        <div>title: <input {...title} /></div>
+        <div>author: <input {...author} /></div>
+        <div>url: <input {...url} /></div>
         <button type="submit" id='create'>create</button>
       </form>
     </div>
