@@ -6,7 +6,6 @@ import LoginForm from "./components/LoginForm"
 import Notification from "./components/Notification"
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -19,14 +18,6 @@ const App = () => {
     }
   }, [])
 
-  useEffect(() => {
-    blogService.getAll().then((blogs) => {
-      blogs.sort((a, b) => b.likes - a.likes)
-      setBlogs(blogs)
-    })
-  }, [])
-
-
   return (
     <div>
       <h1>Blogs</h1>
@@ -34,7 +25,7 @@ const App = () => {
       <LoginForm user={user} setUser={setUser} />
       {
         user &&
-        <BlogForm blogs={blogs} setBlogs={setBlogs} />
+        <BlogForm />
       }
     </div>
   )

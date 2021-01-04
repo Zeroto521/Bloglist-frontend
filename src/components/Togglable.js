@@ -1,24 +1,19 @@
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
+
+import { useVisible } from '../hooks'
 
 const Togglable = (props) => {
-  const [visible, setVisible] = useState(false)
-
-  const hideWhenVisible = { display: visible ? 'none' : '' }
-  const showWhenVisible = { display: visible ? '' : 'none' }
-
-  const toggleVisibility = () => {
-    setVisible(!visible)
-  }
+  const visible = useVisible()
 
   return (
     <div>
-      <div style={hideWhenVisible}>
-        <button onClick={toggleVisibility}>{props.buttonLabel}</button>
+      <div style={visible.hideWhenVisible}>
+        <button onClick={visible.toggleVisibility}>{props.buttonLabel}</button>
       </div>
-      <div style={showWhenVisible}>
+      <div style={visible.showWhenVisible}>
         {props.children}
-        <button id='cancel' onClick={toggleVisibility}>cancel</button>
+        <button id='cancel' onClick={visible.toggleVisibility}>cancel</button>
       </div>
     </div>
   )
