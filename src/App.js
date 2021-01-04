@@ -7,7 +7,6 @@ import Notification from "./components/Notification"
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [notification, setNotification] = useState(null)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [user, setUser] = useState(null)
@@ -29,18 +28,12 @@ const App = () => {
     })
   }, [])
 
-  const notifyWith = (message, type = "success") => {
-    setNotification({ message, type })
-    setTimeout(() => { setNotification(null) }, 3000)
-  }
-
 
   return (
     <div>
       <h1>Blogs</h1>
-      <Notification notification={notification} />
+      <Notification />
       <LoginForm
-        notifyWith={notifyWith}
         user={user}
         setUser={setUser}
         username={username}
@@ -50,7 +43,7 @@ const App = () => {
       />
       {
         user &&
-        <BlogForm blogs={blogs} setBlogs={setBlogs} notifyWith={notifyWith} />
+        <BlogForm blogs={blogs} setBlogs={setBlogs} />
       }
     </div>
   )
