@@ -3,7 +3,7 @@ import axios from 'axios'
 import { setToken } from "../services/token"
 
 const loggedAppUser = 'loggedAppUser'
-const baseUrl = 'http://localhost:3001/api/login'
+const baseUrl = '/api/login'
 
 const reducer = (state = null, action) => {
   switch (action.type) {
