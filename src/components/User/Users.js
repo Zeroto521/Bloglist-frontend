@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import React from 'react'
 
-import User from './User'
+import { User } from './User'
 
 const Users = () => {
   const users = useSelector(state => state.users)
