@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { Toolbar, AppBar, Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import React from 'react'
 
@@ -8,10 +9,6 @@ const Menu = () => {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
-  const padding = {
-    'paddingRight': 5
-  }
-
   const handleLogout = () => {
     logout()
     dispatch(setUser(null))
@@ -19,16 +16,18 @@ const Menu = () => {
 
   const loginLink = () => {
     if (user) {
-      return <button onClick={handleLogout}>logout</button>
+      return <Button color="inherit" onClick={handleLogout}>logout</Button>
     }
   }
 
   return (
-    <div>
-      <Link style={padding} to="/">blogs</Link>
-      <Link style={padding} to="/users">users</Link>
-      {loginLink()}
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <Button color="inherit" component={Link} to="/">blogs</Button>
+        <Button color="inherit" component={Link} to="/users">users</Button>
+        {loginLink()}
+      </Toolbar>
+    </AppBar>
   )
 }
 

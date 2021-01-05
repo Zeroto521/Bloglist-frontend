@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const useField = (type) => {
+const useField = (type, label) => {
   const [value, setValue] = useState('')
 
   const onChange = (event) => {
@@ -8,19 +8,10 @@ const useField = (type) => {
   }
 
   return {
+    label,
     type,
     value,
     onChange
-  }
-}
-
-const useLogin = () => {
-  const username = useField('text')
-  const password = useField('password')
-
-  return {
-    username,
-    password
   }
 }
 
@@ -43,4 +34,4 @@ const useVisible = () => {
   }
 }
 
-export { useField, useLogin, useVisible }
+export { useField, useVisible }

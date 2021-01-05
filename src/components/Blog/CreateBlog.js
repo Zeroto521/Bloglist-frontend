@@ -1,3 +1,4 @@
+import { TextField, Button } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import React from 'react'
 
@@ -7,9 +8,9 @@ import { notify } from '../../reducers/notificationReducer'
 import { useField } from '../../hooks'
 
 const CreateBlog = () => {
-  const title = useField('text')
-  const author = useField('text')
-  const url = useField('text')
+  const title = useField('text', 'title')
+  const author = useField('text', 'auther')
+  const url = useField('text', 'url')
 
   const dispatch = useDispatch()
 
@@ -22,12 +23,12 @@ const CreateBlog = () => {
 
   return (
     <div>
-      <h2>create new</h2>
+      <h3>create new</h3>
       <form onSubmit={event => addBlog(event, title.value, author.value, url.value)}>
-        <div>title: <input {...title} /></div>
-        <div>author: <input {...author} /></div>
-        <div>url: <input {...url} /></div>
-        <button type="submit" id='create'>create</button>
+        <div><TextField {...title} /></div>
+        <div><TextField {...author} /></div>
+        <div><TextField {...url} /></div>
+        <Button variant="contained" color="primary" type="submit">create</Button>
       </form>
     </div>
   )

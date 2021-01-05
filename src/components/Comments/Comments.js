@@ -1,10 +1,17 @@
+import { ListItem, List } from '@material-ui/core'
+import Divider from '@material-ui/core/Divider'
 import React from 'react'
 
 import CreateComment from "./CreateComment"
 import Togglable from "../Togglable"
 
 const Comment = ({ comment }) => (
-  <li>{comment}</li>
+  <div>
+    <ListItem button>
+      {comment}
+    </ListItem>
+    <Divider />
+  </div>
 )
 
 const Comments = ({ blog }) => (
@@ -15,10 +22,14 @@ const Comments = ({ blog }) => (
       </Togglable>
     </div>
     <div>
-      {
-        blog.comments.map((comment, index) =>
-          <Comment key={index} comment={comment} />)
-      }
+      <h3>Comments list</h3>
+      <List aria-label="secondary mailbox folders">
+        {
+          blog.comments.map((comment, index) =>
+            <Comment key={index} comment={comment} />)
+        }
+      </List>
+
     </div>
   </div>
 )

@@ -1,3 +1,4 @@
+import { Alert } from '@material-ui/lab'
 import { useSelector } from 'react-redux'
 import React from 'react'
 
@@ -7,9 +8,9 @@ const Notification = () => {
 
   if (notification) {
     dom = (
-      <div className={notification.type}>
+      <Alert severity={notification.type}>
         {notification.message}
-      </div>
+      </Alert>
     )
   }
 

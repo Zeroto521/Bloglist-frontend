@@ -1,3 +1,4 @@
+import { List } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import React from 'react'
 
@@ -19,12 +20,14 @@ const Blogs = () => {
           </Togglable>
         </div>
         <div>
-          <h2>contents</h2>
-          {
-            blogs.map(blog =>
-              <Blog key={blog.id} blog={blog} />
-            )
-          }
+          <h3>contents</h3>
+          <List aria-label="secondary mailbox folders">
+            {
+              blogs.map(blog =>
+                <Blog key={blog.id} blog={blog} />
+              )
+            }
+          </List>
         </div>
       </div>
     )

@@ -1,26 +1,26 @@
+import { TextField, Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import React from 'react'
 
 import { notify } from '../../reducers/notificationReducer'
 import { setUser, login, saveToLocal } from '../../reducers/userReducer'
-import { useLogin } from '../../hooks'
+import { useField } from '../../hooks'
 
 const LoginForm = () => {
   const user = useSelector(state => state.user)
-  const account = useLogin()
+  const username = useField('text', 'username')
+  const password = useField('password', 'password')
   const dispatch = useDispatch()
 
   const handleLogin = async (event) => {
     event.preventDefault()
 
     try {
-      const user = await login(
-        account.username.value,
-        account.password.value)
+      const user = await login(username.value, password.value)
       dispatch(setUser(user))
       saveToLocal(user)
       dispatch(notify('Welcome.'))
-    } catch (exception) {
+    } catch {
       dispatch(notify('Wrong username or password.', 'error'))
     }
   }
@@ -35,12 +35,14 @@ const LoginForm = () => {
       <div>
         <form onSubmit={handleLogin}>
           <div>
-            username <input {...account.username} />
+            <TextField {...username} />
           </div>
           <div>
-            password <input {...account.password} />
+            <TextField {...password} />
           </div>
-          <button type="submit">login</button>
+          <div>
+            <Button variant="contained" color="primary" type="submit">login</Button>
+          </div>
         </form>
       </div>
     </div>

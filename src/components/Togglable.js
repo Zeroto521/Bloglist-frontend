@@ -1,3 +1,5 @@
+import { Button, Fab } from '@material-ui/core'
+import EditIcon from '@material-ui/icons/Edit'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -9,11 +11,12 @@ const Togglable = (props) => {
   return (
     <div>
       <div style={visible.hideWhenVisible}>
-        <button onClick={visible.toggleVisibility}>{props.buttonLabel}</button>
+        <Fab aria-label="edit" variant="contained" onClick={visible.toggleVisibility}>
+          <EditIcon /> {props.buttonLabel}
+        </Fab >
       </div>
       <div style={visible.showWhenVisible}>
-        {props.children}
-        <button id='cancel' onClick={visible.toggleVisibility}>cancel</button>
+        {props.children} <Button variant="contained" color="primary" onClick={visible.toggleVisibility}>cancel</Button>
       </div>
     </div>
   )
