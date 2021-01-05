@@ -5,6 +5,7 @@ import React from 'react'
 import { initialize as userInit } from '../../reducers/usersReducer'
 import { notify } from '../../reducers/notificationReducer'
 import { update, remove } from '../../reducers/blogReducer'
+import Comments from '../Comments/Comments'
 
 const blogStyle = {
   'paddingTop': 10,
@@ -45,13 +46,19 @@ const BlogDetail = ({ blog }) => {
 
     dom = (
       <div>
-        <h2>{blog.title}</h2>
-        <div>{blog.url}</div>
         <div>
-          {blog.likes} <button onClick={() => handleLikeChange(blog)}>like</button>
+          <h2>{blog.title}</h2>
+          <div>{blog.url}</div>
+          <div>
+            {blog.likes} <button onClick={() => handleLikeChange(blog)}>like</button>
+          </div>
+          <div>added by {blog.author}</div>
+          <button onClick={() => handleRemove(blog)}>remove</button>
         </div>
-        <div>added by {blog.author}</div>
-        <button onClick={() => handleRemove(blog)}>remove</button>
+        <div>
+          <h2>Comments</h2>
+          <Comments blog={blog} />
+        </div>
       </div>
     )
   }

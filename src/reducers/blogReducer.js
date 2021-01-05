@@ -58,5 +58,15 @@ const remove = (id) => {
   }
 }
 
-export { initialize, create, update, remove }
+const addComment = (id, comment) => {
+  return async dispatch => {
+    const data = await service.addComment(id, comment)
+    dispatch({
+      'type': 'BLOG_UPDATE',
+      data
+    })
+  }
+}
+
+export { initialize, create, update, remove, addComment }
 export default reducer
