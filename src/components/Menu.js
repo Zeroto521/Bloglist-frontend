@@ -1,15 +1,33 @@
 import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
 import React from 'react'
 
+import { setUser, logout } from '../reducers/userReducer'
+
 const Menu = () => {
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
   const padding = {
     'paddingRight': 5
+  }
+
+  const handleLogout = () => {
+    logout()
+    dispatch(setUser(null))
   }
 
   return (
     <div>
       <Link style={padding} to="/">blogs</Link>
-      <Link style={padding} to="/create">users</Link>
+      <Link style={padding} to="/users">users</Link>
+      {
+        user &&
+        <div>
+          {user.name} logged in
+          <button onClick={handleLogout}>logout</button>
+        </div>
+      }
     </div>
   )
 }

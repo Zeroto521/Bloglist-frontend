@@ -1,4 +1,9 @@
+import axios from 'axios'
+
 import { setToken } from "../services/token"
+
+const loggedAppUser = 'loggedAppUser'
+const baseUrl = 'http://localhost:3001/api/login'
 
 const reducer = (state = null, action) => {
   switch (action.type) {
@@ -13,10 +18,28 @@ const reducer = (state = null, action) => {
   }
 }
 
+const login = async (username, password) => {
+  const response = await axios.post(baseUrl, {
+    username, password
+  })
+  return response.data
+}
+
+const saveToLocal = (user) => {
+  window.localStorage.setItem(
+    loggedAppUser,
+    JSON.stringify(user)
+  )
+}
+
+const logout = () => {
+  window.localStorage.removeItem(loggedAppUser)
+}
+
 const setUser = (user) => ({
   'type': 'USER_SET',
   user
 })
 
-export { setUser }
+export { setUser, login, logout, saveToLocal }
 export default reducer

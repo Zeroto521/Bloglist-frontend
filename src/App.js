@@ -9,6 +9,7 @@ import { setUser } from './reducers/userReducer'
 import { UserDetail } from './components/User/User'
 import Blogs from "./components/Blog/Blogs"
 import LoginForm from "./components/User/LoginForm"
+import Menu from './components/Menu'
 import Notification from "./components/Notification"
 import Users from "./components/User/Users"
 
@@ -40,7 +41,8 @@ const App = () => {
 
   return (
     <div>
-      <h1>Blogs</h1>
+      <Menu />
+      <h1>Blogs App</h1>
       <Notification />
       <LoginForm />
 
@@ -51,11 +53,11 @@ const App = () => {
         <Route path="/blogs/:id">
           <BlogDetail blog={blog} />
         </Route>
-        <Route path="/">
-          <Blogs />
-        </Route>
         <Route path="/users">
           <Users />
+        </Route>
+        <Route path="/">
+          <Blogs />
         </Route>
       </Switch>
     </div>
