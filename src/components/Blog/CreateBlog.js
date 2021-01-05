@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux'
 import React from 'react'
 
-import { create } from '../reducers/blogReducer'
-import { notify } from '../reducers/notificationReducer'
-import { useField } from '../hooks'
+import { create } from '../../reducers/blogReducer'
+import { initialize as userInit } from '../../reducers/usersReducer'
+import { notify } from '../../reducers/notificationReducer'
+import { useField } from '../../hooks'
 
 const CreateBlog = () => {
   const title = useField('text')
@@ -16,6 +17,7 @@ const CreateBlog = () => {
     event.preventDefault()
     dispatch(create({ title, author, url }))
     dispatch(notify(`a new blog ${title} by ${author}`))
+    dispatch(userInit())
   }
 
   return (

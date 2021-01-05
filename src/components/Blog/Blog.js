@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux'
 import React from 'react'
 
-import { notify } from '../reducers/notificationReducer'
-import { update, remove } from '../reducers/blogReducer'
-import { useVisible } from '../hooks'
+import { initialize as userInit } from '../../reducers/usersReducer'
+import { notify } from '../../reducers/notificationReducer'
+import { update, remove } from '../../reducers/blogReducer'
+import { useVisible } from '../../hooks'
 
 const Blog = ({ blog }) => {
   const dispatch = useDispatch()
@@ -19,9 +20,7 @@ const Blog = ({ blog }) => {
 
   const handleLikeChange = async (blog) => {
     dispatch(update(blog.id, {
-      'title': blog.title,
-      'author': blog.author,
-      'url': blog.url,
+      ...blog,
       'likes': blog.likes + 1,
     }))
     dispatch(notify(`blog likes+1 ${blog.title} by ${blog.author}`))
@@ -31,6 +30,7 @@ const Blog = ({ blog }) => {
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
       dispatch(remove(blog.id))
       dispatch(notify(`Removed blog ${blog.title} by ${blog.author}`, 'error'))
+      dispatch(userInit())
     }
   }
 

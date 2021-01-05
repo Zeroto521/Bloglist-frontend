@@ -3,9 +3,9 @@ import React from 'react'
 
 import Blog from './Blog'
 import CreateBlog from "./CreateBlog"
-import Togglable from "./Togglable"
+import Togglable from "../Togglable"
 
-const BlogForm = () => {
+const Blogs = () => {
   const blogs = useSelector(state => state.blogs)
   const user = useSelector(state => state.user)
 
@@ -33,4 +33,4 @@ const BlogForm = () => {
   return dom
 }
 
-export default BlogForm
+export default Blogs

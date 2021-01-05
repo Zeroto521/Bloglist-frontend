@@ -1,12 +1,11 @@
-import service from "../services/blogs"
-
+import { setToken } from "../services/token"
 
 const reducer = (state = null, action) => {
   switch (action.type) {
   case 'USER_SET':
-    service.setToken(null)
+    setToken(null)
     if (action.user) {
-      service.setToken(action.user.token)
+      setToken(action.user.token)
     }
     return action.user
   default:

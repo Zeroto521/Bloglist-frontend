@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
 import React from 'react'
 
-import { notify } from '../reducers/notificationReducer'
-import { setUser } from '../reducers/userReducer'
-import { useLogin } from '../hooks'
+import { notify } from '../../reducers/notificationReducer'
+import { setUser } from '../../reducers/userReducer'
+import { useLogin } from '../../hooks'
 
 const LoginForm = () => {
   const user = useSelector(state => state.user)

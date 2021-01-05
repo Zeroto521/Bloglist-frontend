@@ -1,11 +1,13 @@
 import { useDispatch } from 'react-redux'
 import React, { useEffect } from "react"
 
-import { initialize } from './reducers/blogReducer'
+import { initialize as blogInit } from './reducers/blogReducer'
+import { initialize as userInit } from './reducers/usersReducer'
 import { setUser } from './reducers/userReducer'
-import BlogForm from "./components/BlogForm"
-import LoginForm from "./components/LoginForm"
+import Blogs from "./components/Blog/Blogs"
+import LoginForm from "./components/User/LoginForm"
 import Notification from "./components/Notification"
+import Users from "./components/User/Users"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -18,14 +20,16 @@ const App = () => {
     }
   }, [])
 
-  useEffect(() => { dispatch(initialize()) }, [])
+  useEffect(() => { dispatch(blogInit()) }, [])
+  useEffect(() => { dispatch(userInit()) }, [])
 
   return (
     <div>
       <h1>Blogs</h1>
       <Notification />
       <LoginForm />
-      <BlogForm />
+      <Blogs />
+      <Users />
     </div>
   )
 }
